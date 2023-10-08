@@ -660,6 +660,7 @@ class Less_Parser{
 			$this->skipWhitespace(strlen($match[0]));
 			return $match;
 		}
+		return [];
 	}
 
 
@@ -1657,8 +1658,9 @@ class Less_Parser{
 		}
 
 		$this->expectChar(']');
-
-		return $this->NewObj3('Less_Tree_Attribute',array( $key, $op[0], $val));
+		// kiendt- fix check empty option
+		$_op = !empty($op[0]) ? $op[0] : 0;
+		return $this->NewObj3('Less_Tree_Attribute',array( $key, $_op, $val));
 	}
 
 	//
@@ -5202,7 +5204,7 @@ class Less_Tree_Directive extends Less_Tree{
 	public $debugInfo;
 	public $type = 'Directive';
 
-	public function __construct($name, $value = null, $rules, $index = null, $currentFileInfo = null, $debugInfo = null ){
+	public function __construct($name, $value, $rules, $index = null, $currentFileInfo = null, $debugInfo = null ){
 		$this->name = $name;
 		$this->value = $value;
 		if( $rules ){
@@ -9012,6 +9014,9 @@ class Less_Visitor_toCSS extends Less_VisitorReplacing{
 		$rulesets = array();
 		$rulesetNode->paths = $this->visitRulesetPaths($rulesetNode);
 
+		// by pass error; debug later - KHANH
+		if (!$rulesetNode->rules) return $rulesets;
+		//;
 
 		// Compile rules and rulesets
 		$nodeRuleCnt = count($rulesetNode->rules);
@@ -9383,7 +9388,7 @@ class Less_Exception_Chunk extends Less_Exception_Parser{
 				case 40:
 					$parenLevel++;
 					$lastParen = $this->parserCurrentIndex;
-					continue;
+					continue 2;
 
 				// )
 				case 41:
@@ -9391,18 +9396,18 @@ class Less_Exception_Chunk extends Less_Exception_Parser{
 					if( $parenLevel < 0 ){
 						return $this->fail("missing opening `(`");
 					}
-					continue;
+					continue 2;
 
 				// ;
 				case 59:
 					//if (!$parenLevel) { $this->emitChunk();	}
-					continue;
+					continue 2;
 
 				// {
 				case 123:
 					$level++;
 					$lastOpening = $this->parserCurrentIndex;
-					continue;
+					continue 2;
 
 				// }
 				case 125:
@@ -9412,10 +9417,10 @@ class Less_Exception_Chunk extends Less_Exception_Parser{
 
 					}
 					//if (!$level && !$parenLevel) { $this->emitChunk(); }
-					continue;
+					continue 2;
 				// \
 				case 92:
-					if ($this->parserCurrentIndex < $this->input_len - 1) { $this->parserCurrentIndex++; continue; }
+					if ($this->parserCurrentIndex < $this->input_len - 1) { $this->parserCurrentIndex++; continue 2; }
 					return $this->fail("unescaped `\\`");
 
 				// ", ' and `
@@ -9435,12 +9440,12 @@ class Less_Exception_Chunk extends Less_Exception_Parser{
 							$this->parserCurrentIndex++;
 						}
 					}
-					if ($matched) { continue; }
+					if ($matched) { continue 2; }
 					return $this->fail("unmatched `" + chr($cc) + "`", $currentChunkStartIndex);
 
 				// /, check for comment
 				case 47:
-					if ($parenLevel || ($this->parserCurrentIndex == $this->input_len - 1)) { continue; }
+					if ($parenLevel || ($this->parserCurrentIndex == $this->input_len - 1)) { continue 2; }
 					$cc2 = $this->CharCode($this->parserCurrentIndex+1);
 					if ($cc2 == 47) {
 						// //, find lnfeed
@@ -9461,14 +9466,14 @@ class Less_Exception_Chunk extends Less_Exception_Parser{
 							return $this->fail("missing closing `*/`", $currentChunkStartIndex);
 						}
 					}
-					continue;
+					continue 2;
 
 				// *, check for unmatched */
 				case 42:
 					if (($this->parserCurrentIndex < $this->input_len - 1) && ($this->CharCode($this->parserCurrentIndex+1) == 47)) {
 						return $this->fail("unmatched `/*`");
 					}
-					continue;
+					continue 2;
 			}
 		}
 

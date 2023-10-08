@@ -9,7 +9,6 @@ defined('_JEXEC') or die;
 ?>
 
 <div class="home">
-
   <?php if ($this->countModules('home-1')) : ?>
   <!-- HOME SL 1 -->
   <div class="wrap t3-sl t3-sl-1<?php $this->_c('home-1')?>">

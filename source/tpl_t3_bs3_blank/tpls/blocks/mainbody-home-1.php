@@ -6,9 +6,30 @@
  */
 
 defined('_JEXEC') or die;
+
+if (is_array($this->getParam('skip_component_content')) && 
+  in_array(JFactory::getApplication()->input->getInt('Itemid'), $this->getParam('skip_component_content'))) 
+return;
+$jinput = JFactory::getApplication()->input;
 ?>
 
 <div class="home">
+  <?php if($jinput->getCmd('option') == 'com_config' && $jinput->getCmd('view') == 'modules'): ?>
+  <div id="t3-mainbody" class="container t3-mainbody">
+    <div class="row">
+
+      <!-- MAIN CONTENT -->
+      <div id="t3-content" class="t3-content col-xs-12">
+        <?php if($this->hasMessage()) : ?>
+        <jdoc:include type="message" />
+        <?php endif ?>
+        <jdoc:include type="component" />
+      </div>
+      <!-- //MAIN CONTENT -->
+
+    </div>
+  </div> 
+  <?php endif; ?>
 
 	<?php if ($this->countModules('home-1')) : ?>
 		<!-- HOME SL 1 -->

@@ -3,37 +3,70 @@
  * @package     Joomla.Site
  * @subpackage  com_config
  *
- * @copyright   Copyright (C) 2005 - 2015 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Filesystem\File;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Multilanguage;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
+if(version_compare(JVERSION, '4', 'ge')){
+	HTMLHelper::_('behavior.combobox');
 
-JHtml::_('behavior.tooltip');
-JHtml::_('behavior.formvalidator');
-JHtml::_('behavior.keepalive');
-JHtml::_('behavior.framework', true);
-JHtml::_('behavior.combobox');
-JHtml::_('formbehavior.chosen', 'select');
+	/** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
+	$wa = $this->document->getWebAssetManager();
+	$wa->useScript('keepalive')
+		->useScript('form.validate')
+		->useScript('com_config.modules');
 
-$hasContent = empty($this->item['module']) || $this->item['module'] == 'custom' || $this->item['module'] == 'mod_custom';
+	$hasContent  = false;
+	$moduleXml   = JPATH_SITE . '/modules/' . $this->item['module'] . '/' . $this->item['module'] . '.xml';
 
-// If multi-language site, make language read-only
-if (JLanguageMultilang::isEnabled())
-{
-	$this->form->setFieldAttribute('language', 'readonly', 'true');
-}
-
-JFactory::getDocument()->addScriptDeclaration("
-	Joomla.submitbutton = function(task)
+	if (File::exists($moduleXml))
 	{
-		if (task == 'config.cancel.modules' || document.formvalidator.isValid(document.getElementById('modules-form')))
-		{
-			Joomla.submitform(task, document.getElementById('modules-form'));
-		}
-	};
-");
+		$xml = simplexml_load_file($moduleXml);
 
+		if (isset($xml->customContent))
+		{
+			$hasContent = true;
+		}
+	}
+
+	// If multi-language site, make language read-only
+	if (Multilanguage::isEnabled())
+	{
+		$this->form->setFieldAttribute('language', 'readonly', 'true');
+	}
+}else{
+	JHtml::_('bootstrap.tooltip');
+	JHtml::_('behavior.formvalidator');
+	JHtml::_('behavior.keepalive');
+	JHtml::_('behavior.framework', true);
+	JHtml::_('behavior.combobox');
+	JHtml::_('formbehavior.chosen', 'select');
+
+	$hasContent = empty($this->item['module']) || $this->item['module'] === 'custom' || $this->item['module'] === 'mod_custom';
+
+	// If multi-language site, make language read-only
+	if (JLanguageMultilang::isEnabled())
+	{
+		$this->form->setFieldAttribute('language', 'readonly', 'true');
+	}
+
+	JFactory::getDocument()->addScriptDeclaration("
+		Joomla.submitbutton = function(task)
+		{
+			if (task == 'config.cancel.modules' || document.formvalidator.isValid(document.getElementById('modules-form')))
+			{
+				Joomla.submitform(task, document.getElementById('modules-form'));
+			}
+		}
+	");
+}
 ?>
 
 <form
@@ -45,39 +78,56 @@ JFactory::getDocument()->addScriptDeclaration("
 
 		<!-- Begin Content -->
 		<div class="span12">
-
-			<div class="btn-toolbar">
+			<?php if(version_compare(JVERSION, '4.0', 'ge')): ?>
+				<div class="mb-2">
+			<button type="button" class="btn btn-primary" data-submit-task="modules.apply">
+				<span class="icon-check" aria-hidden="true"></span>
+				<?php echo Text::_('JAPPLY'); ?>
+			</button>
+			<button type="button" class="btn btn-primary" data-submit-task="modules.save">
+				<span class="icon-check" aria-hidden="true"></span>
+				<?php echo Text::_('JSAVE'); ?>
+			</button>
+			<button type="button" class="btn btn-danger" data-submit-task="modules.cancel">
+				<span class="icon-times" aria-hidden="true"></span>
+				<?php echo Text::_('JCANCEL'); ?>
+			</button>
+			</div>
+			<?php else: ?>
+			<div class="btn-toolbar" role="toolbar" aria-label="<?php echo Text::_('JTOOLBAR'); ?>">
 				<div class="btn-group">
 					<button type="button" class="btn btn-default btn-primary"
 						onclick="Joomla.submitbutton('config.save.modules.apply')">
-						<i class="icon-apply"></i>
-						<?php echo JText::_('JAPPLY') ?>
+						<span class="icon-apply" aria-hidden="true"></span>
+						<?php echo Text::_('JAPPLY'); ?>
 					</button>
 				</div>
 				<div class="btn-group">
 					<button type="button" class="btn btn-default"
 						onclick="Joomla.submitbutton('config.save.modules.save')">
-						<i class="icon-save"></i>
-						<?php echo JText::_('JSAVE') ?>
+						<span class="icon-save" aria-hidden="true"></span>
+						<?php echo Text::_('JSAVE'); ?>
 					</button>
 				</div>
 				<div class="btn-group">
 					<button type="button" class="btn btn-default"
 						onclick="Joomla.submitbutton('config.cancel.modules')">
-						<i class="icon-cancel"></i>
-						<?php echo JText::_('JCANCEL') ?>
+						<span class="icon-cancel" aria-hidden="true"></span>
+						<?php echo Text::_('JCANCEL'); ?>
 					</button>
 				</div>
 			</div>
-
+			<?php endif; ?>
 			<hr class="hr-condensed" />
+			
+			<legend><?php echo Text::_('COM_CONFIG_MODULES_SETTINGS_TITLE'); ?></legend>
 
 			<div>
-				<?php echo JText::_('COM_CONFIG_MODULES_MODULE_NAME') ?>
-				<span class="label label-default"><?php echo $this->item['title'] ?></span>
+				<?php echo Text::_('COM_CONFIG_MODULES_MODULE_NAME'); ?>
+				<span class="label label-default"><?php echo $this->item['title']; ?></span>
 				&nbsp;&nbsp;
-				<?php echo JText::_('COM_CONFIG_MODULES_MODULE_TYPE') ?>
-				<span class="label label-default"><?php echo $this->item['module'] ?></span>
+				<?php echo Text::_('COM_CONFIG_MODULES_MODULE_TYPE'); ?>
+				<span class="label label-default"><?php echo $this->item['module']; ?></span>
 			</div>
 
 			<br />
@@ -85,17 +135,101 @@ JFactory::getDocument()->addScriptDeclaration("
 			<div class="row-fluid">
 				<div class="span12">
 					<fieldset class="form-horizontal">
-						<?php $activepane = JFactory::getApplication()->input->cookie->get('configModulePane');
-							if (!$activepane) $activepane = 'collapse0'; ?>
-						<?php echo JHtml::_('bootstrap.startAccordion', 'collapseTypes', array('active'=>$activepane)); ?>
+						<div class="control-group">
+							<div class="control-label">
+								<?php echo $this->form->getLabel('title'); ?>
+							</div>
+							<div class="controls">
+								<?php echo $this->form->getInput('title'); ?>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="control-label">
+								<?php echo $this->form->getLabel('showtitle'); ?>
+							</div>
+							<div class="controls">
+								<?php echo $this->form->getInput('showtitle'); ?>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="control-label">
+								<?php echo $this->form->getLabel('position'); ?>
+							</div>
+							<div class="controls">
+								<?php echo $this->loadTemplate('positions'); ?>
+							</div>
+						</div>
 
-							<?php echo JHtml::_('bootstrap.addSlide', 'collapseTypes', JText::_('COM_CONFIG_MODULES_SETTINGS_TITLE'), 'collapse0'); ?>
-							<?php echo $this->loadTemplate('details'); ?>
-							<?php echo JHtml::_('bootstrap.endSlide'); ?>
+						<hr />
 
+						<?php
+						if (JFactory::getUser()->authorise('core.edit.state', 'com_modules.module.' . $this->item['id'])) : ?>
+						<div class="control-group">
+							<div class="control-label">
+								<?php echo $this->form->getLabel('published'); ?>
+							</div>
+							<div class="controls">
+								<?php echo $this->form->getInput('published'); ?>
+							</div>
+						</div>
+						<?php endif ?>
+
+						<div class="control-group">
+							<div class="control-label">
+								<?php echo $this->form->getLabel('publish_up'); ?>
+							</div>
+							<div class="controls">
+								<?php echo $this->form->getInput('publish_up'); ?>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="control-label">
+								<?php echo $this->form->getLabel('publish_down'); ?>
+							</div>
+							<div class="controls">
+								<?php echo $this->form->getInput('publish_down'); ?>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<div class="control-label">
+								<?php echo $this->form->getLabel('access'); ?>
+							</div>
+							<div class="controls">
+								<?php echo $this->form->getInput('access'); ?>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="control-label">
+								<?php echo $this->form->getLabel('ordering'); ?>
+							</div>
+							<div class="controls">
+								<?php echo $this->form->getInput('ordering'); ?>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<div class="control-label">
+								<?php echo $this->form->getLabel('language'); ?>
+							</div>
+							<div class="controls">
+								<?php echo $this->form->getInput('language'); ?>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="control-label">
+								<?php echo $this->form->getLabel('note'); ?>
+							</div>
+							<div class="controls">
+								<?php echo $this->form->getInput('note'); ?>
+							</div>
+						</div>
+
+						<hr />
+
+						<div id="options">
 							<?php echo $this->loadTemplate('options'); ?>
-
-						<?php echo JHtml::_('bootstrap.endAccordion'); ?>
+						</div>
 
 						<?php if ($hasContent): ?>
 							<div class="tab-pane" id="custom">
@@ -117,21 +251,3 @@ JFactory::getDocument()->addScriptDeclaration("
 	</div>
 
 </form>
-
-<?php
-// fix collapse
-JFactory::getDocument()->addScriptDeclaration("
-jQuery(function($){
-	$('#collapseTypes').on('show.bs.collapse', function () {
-		$('#collapseTypes .in').collapse('hide');
-	});
-
-	$('#collapseTypes').on('shown.bs.collapse', function () {
-		var active = $('#collapseTypes .in').attr('id');
-		console.log(active);
-		document.cookie = 'configModulePane=' + active;
-	});
-
-});
-");
-?>

@@ -125,7 +125,7 @@ jQuery (document).ready(function($){
         $wrapper.addClass ('off-canvas-open');
         $inner.on ('click', oc_hide);
         $close.on ('click', oc_hide);
-        $offcanvas.on ('click', stopBubble);
+        $offcanvas.on ('click', handleClick);
 
         // fix for old ie
         if ($.browser.msie && $.browser.version < 10) {
@@ -147,7 +147,7 @@ jQuery (document).ready(function($){
         //remove events
         $inner.off ('click', oc_hide);
         $close.off ('click', oc_hide);
-        $offcanvas.off ('click', stopBubble);
+        $offcanvas.off ('click', handleClick);
 
         //delay for click action
         setTimeout(function(){
@@ -185,13 +185,34 @@ jQuery (document).ready(function($){
 
     };
 
-    var stopBubble = function (e) {
-        e.stopPropagation();
+    var handleClick = function (e) {        
+        if ($(e.target).closest('a').length) {
+            if (!e.target.href) return;
+            // handle the anchor link
+            var arr1 = e.target.href.split('#'),
+                arr2 = location.href.split('#');
+            if (arr1[0] == arr2[0] && arr1.length > 1 && arr1[1].length) {
+                oc_hide();
+                setTimeout(function(){
+                    var anchor = $("a[name='"+ arr1[1] +"']");
+                    if (!anchor.length) anchor = $('#' + arr1[1]);
+                    if (anchor.length) 
+                        $('html,body').animate({scrollTop: anchor.offset().top},'slow');
+                }, 1000);
+            }
+            // prevent only if anchor same page.
+            if (e.target.href.search('#') !== -1) return;
+        }
+        stopBubble(e);
         return true;
     }
 
+    var stopBubble = function (e) {
+        e.stopPropagation();
+    }
+
     // preload fixed items
-    $(window).load(function() {
+    $(window).on('load',function() {
       setTimeout(function(){
         $fixed = $inner.find('*').filter (function() {return $(this).css("position") === 'fixed';});
       }, 100);

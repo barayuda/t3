@@ -71,13 +71,17 @@ class T3MenuMegamenu {
 			if($item->level >= 2 && !isset($this->_items[$item->parent_id])){
 				continue;
 			}
+			
+			//intergration with new params joomla 3.6.x (menu_show)
+			$menu_show = $item->getParams()->get('menu_show');
+			if (empty($menu_show) && $menu_show!==null)
+				continue;
 
 			$parent                           = isset($this->children[$item->parent_id]) ? $this->children[$item->parent_id] : array();
 			$parent[]                         = $item;
 			$this->children[$item->parent_id] = $parent;
 			$this->_items[$item->id]          = $item;
 		}
-		
 		foreach ($items as &$item) {
 			// bind setting for this item
 			$key     = 'item-' . $item->id;
@@ -97,7 +101,7 @@ class T3MenuMegamenu {
 			if (in_array($item->id, $this->active_tree)) {
 				$class .= ' active';
 			} elseif ($item->type == 'alias') {
-				$aliasToId = $item->params->get('aliasoptions');
+				$aliasToId = $item->getParams()->get('aliasoptions');
 				if (count($this->active_tree) > 0 && $aliasToId == $this->active_tree[count($this->active_tree) - 1]) {
 					$class .= ' active';
 				} elseif (in_array($aliasToId, $this->active_tree)) {
@@ -134,7 +138,7 @@ class T3MenuMegamenu {
 				case 'separator':
 				case 'heading':
 					// No further action needed.
-					continue;
+					break;
 				
 				case 'url':
 					if ((strpos($item->link, 'index.php?') === 0) && (strpos($item->link, 'Itemid=') === false)) {
@@ -145,21 +149,17 @@ class T3MenuMegamenu {
 				
 				case 'alias':
 					// If this is an alias use the item id stored in the parameters to make the link.
-					$item->flink = 'index.php?Itemid=' . $item->params->get('aliasoptions');
+					$item->flink = 'index.php?Itemid=' . $item->getParams()->get('aliasoptions');
 					break;
 				
 				default:
-					$router = JSite::getRouter();
-					if ($router->getMode() == JROUTER_MODE_SEF) {
-						$item->flink = 'index.php?Itemid=' . $item->id;
-					} else {
-						$item->flink .= '&Itemid=' . $item->id;
-					}
+					//$router = JSite::getRouter();
+					$item->flink = 'index.php?Itemid=' . $item->id;
 					break;
 			}
 			
 			if (strcasecmp(substr($item->flink, 0, 4), 'http') && (strpos($item->flink, 'index.php?') !== false)) {
-				$item->flink = JRoute::_($item->flink, true, $item->params->get('secure'));
+				$item->flink = JRoute::_($item->flink, true, $item->getParams()->get('secure'));
 			} else {
 				$item->flink = JRoute::_($item->flink);
 			}
@@ -167,9 +167,11 @@ class T3MenuMegamenu {
 			// We prevent the double encoding because for some reason the $item is shared for menu modules and we get double encoding
 			// when the cause of that is found the argument should be removed
 			$item->title        = htmlspecialchars($item->title, ENT_COMPAT, 'UTF-8', false);
-			$item->anchor_css   = htmlspecialchars($item->params->get('menu-anchor_css', ''), ENT_COMPAT, 'UTF-8', false);
-			$item->anchor_title = htmlspecialchars($item->params->get('menu-anchor_title', ''), ENT_COMPAT, 'UTF-8', false);
-			$item->menu_image   = $item->params->get('menu_image', '') ? htmlspecialchars($item->params->get('menu_image', ''), ENT_COMPAT, 'UTF-8', false) : '';
+			$item->anchor_css   = htmlspecialchars($item->getParams()->get('menu-anchor_css', ''), ENT_COMPAT, 'UTF-8', false);
+			$item->anchor_title = htmlspecialchars($item->getParams()->get('menu-anchor_title', ''), ENT_COMPAT, 'UTF-8', false);
+			$item->anchor_rel = htmlspecialchars($item->getParams()->get('menu-anchor_rel', ''), ENT_COMPAT, 'UTF-8', false);
+			$item->menu_image   = $item->getParams()->get('menu_image', '') ? htmlspecialchars($item->getParams()->get('menu_image', ''), ENT_COMPAT, 'UTF-8', false) : '';
+			$item->menu_image_css = htmlspecialchars($item->getParams()->get('menu_image_css', ''), ENT_COMPAT, 'UTF-8', false);
 		}
 	}
 	
@@ -325,22 +327,22 @@ class T3MenuMegamenu {
 			->where('m.access IN ('.implode(',', $this->settings['access']).')');
 		$db->setQuery($query);
 		$module = $db->loadObject();
-		$doc = JFactory::getDocument();
 		
 		//check in case the module is unpublish or deleted
 		if ($module && $module->id) {
 			$style   = 'T3Xhtml';
-			$content = $doc->getBuffer('module', $module->module, 
-										array('title'=>$module->title, 'style'=>$style));
+			$content = JModuleHelper::renderModule($module, array(
+				'style' => $style
+			));
 
 			$app = JFactory::getApplication();
 			$frontediting = $app->get('frontediting', 1);
 			$user = JFactory::getUser();
 
-			$canEdit = $user->id && $frontediting && !($app->isAdmin() && $frontediting < 2) && $user->authorise('core.edit', 'com_modules');
+			$canEdit = $user->id && $frontediting && !(T3::isAdmin() && $frontediting < 2) && $user->authorise('core.edit', 'com_modules');
 			$menusEditing = ($frontediting == 2) && $user->authorise('core.edit', 'com_menus');
 
-			if ($app->isSite() && $canEdit && trim($content) != '' && $user->authorise('core.edit', 'com_modules.module.' . $module->id))
+			if ($app->isClient('site') && $canEdit && trim($content) != '' && $user->authorise('core.edit', 'com_modules.module.' . $module->id))
 			{
 				$displayData = array('moduleHtml' => &$content, 'module' => $module, 'position' => $module->position, 'menusediting' => $menusEditing);
 				JLayoutHelper::render('joomla.edit.frontediting_modules', $displayData);

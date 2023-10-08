@@ -61,12 +61,10 @@ T3AdminLayout = window.T3AdminLayout || {};
 			}
 
 			var onsubmit = form.onsubmit;
-
-			form.onsubmit = function(e){
-
+			form.addEventListener('submit', function(e){
 				(form.task.value && form.task.value.indexOf('.cancel') != -1) ?
 					($.isFunction(onsubmit) ? onsubmit() : false) : T3AdminLayout.t3savelayout(onsubmit);
-			};
+			});
 		},
 
 		initPrepareLayout: function(){
@@ -135,7 +133,8 @@ T3AdminLayout = window.T3AdminLayout || {};
 				var curspan = T3AdminLayout.curspan;
 
 				if(curspan){
-					$(curspan).parent().removeClass('pos-off pos-active').find('h3').html(this.value || T3Admin.langs.emptyLayoutPosition);
+					$optgroup = $(this).find('option:selected').parent().attr('label');
+					$(curspan).parent().removeClass('pos-off pos-active').find('h3').html(this.value || T3Admin.langs.emptyLayoutPosition).parent().attr('data-optgroup', $optgroup);
 					$(this).closest('.popover').hide();
 
 					var jspl = $(curspan).parent().parent().parent();
@@ -228,6 +227,7 @@ T3AdminLayout = window.T3AdminLayout || {};
 						.next().remove();
 				}
 			}
+			jtplpos.chosen();
 		},
 
 		initLayoutClone: function(){
@@ -477,11 +477,13 @@ T3AdminLayout = window.T3AdminLayout || {};
 			jblocks.not(jspls).not(jsplblocks).not('.t3-admin-layout-uneditable').each(function(){
 				var name = $(this).attr('data-original'),
 					val = $(this).find('.t3-admin-layout-posname').html(),
+					optgroup = $(this).attr('data-optgroup'),
 					vis = $(this).closest('[data-vis]').data('data-vis'),
 					others = $(this).closest('[data-others]').data('data-others'),
 					info = T3AdminLayout.t3emptydv();
 					
 				info.position = val ? val : '';
+				info.optgroup = optgroup ? optgroup : '';
 
 				if(vis){
 					vis = T3AdminLayout.t3visible(0, vis.vals);
@@ -506,6 +508,7 @@ T3AdminLayout = window.T3AdminLayout || {};
 					var jpos = $(this),
 						//pname = jpos.find('.t3-admin-layout-pos').attr('data-original'),
 						val = jpos.find('.t3-admin-layout-posname').html(),
+						optgroup = jpos.find('.t3-admin-layout-pos').attr('data-optgroup'),
 						info = T3AdminLayout.t3emptydv(),
 						width = T3AdminLayout.t3getwidth(idx, widths),
 						visible = T3AdminLayout.t3visible(idx, vis.vals),
@@ -513,6 +516,7 @@ T3AdminLayout = window.T3AdminLayout || {};
 						other = T3AdminLayout.t3others(idx, others);
 					
 					info.position = val ? val : '';
+					info.optgroup = optgroup ? optgroup : '';
 
 					T3AdminLayout.t3formatwidth(info, width);
 					T3AdminLayout.t3formatvisible(info, visible);
@@ -1331,13 +1335,22 @@ T3AdminLayout = window.T3AdminLayout || {};
 								top = offs.top - jselect.outerHeight(true);
 								left = offs.left + (jspan.width() - jselect.width()) / 2;
 							}
-
+							var $optgroup = $(this).parent().attr('data-optgroup');
 							jselect.css({
 								top: top,
 								left: left
 							}).show()
 								.find('select')
 								.val(jspan.siblings('h3').html())
+								.trigger('liszt:updated')
+								.find('option').each(function(){
+									if ($(this).val() == jspan.siblings('h3').html() && $(this).parent().attr('label') == $optgroup) {
+										$(this).parents('select').val('');
+										$(this).attr('selected', true);
+									}
+								})
+								.parents('select')
+								// .trigger('liszt:updated') dont need trigger
 								.next('.t3-admin-layout-rmvbtn').toggleClass('disabled', !jallpos.val())
 								.next('.t3-admin-layout-defbtn').toggleClass('disabled', jspan.siblings('h3').html() == jspan.closest('[data-original]').attr('data-original'));
 

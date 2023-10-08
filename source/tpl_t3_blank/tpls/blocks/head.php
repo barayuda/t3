@@ -18,7 +18,7 @@ defined('_JEXEC') or die;
 
 <?php 
 // SYSTEM CSS
-$this->addStyleSheet(JURI::base(true).'/templates/system/css/system.css'); 
+$this->addStyleSheet(JUri::base(true).'/templates/system/css/system.css'); 
 ?>
 
 <?php 
@@ -34,7 +34,7 @@ if(is_file(T3_TEMPLATE_PATH . '/css/custom.css')) {
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
-<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 <![endif]-->
 
 <!-- For IE6-8 support of media query -->

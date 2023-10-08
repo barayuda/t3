@@ -57,6 +57,10 @@ class T3Template extends ObjectExtendable
 	protected $_pageclass = array();
 
 
+	// after dispatch
+	public function init() {
+
+	}
 	/**
 	 * Class constructor
 	 *
@@ -93,11 +97,12 @@ class T3Template extends ObjectExtendable
 			$fconfig = T3Path::getPath('etc/layout/' . $layout . '.ini');
 			if (is_file($fconfig)) {
 				jimport('joomla.filesystem.file');
-				$this->_layoutsettings->loadString(JFile::read($fconfig), 'INI', array('processSections' => true));
+				$this->_layoutsettings->loadString(file_get_contents($fconfig), 'INI', array('processSections' => true));
 			}
 		}
+		JFactory::getApplication()->triggerEvent('onT3TplInit', array($this));
 
-		JDispatcher::getInstance()->trigger('onT3TplInit', array($this));
+		//JDispatcher::getInstance()->trigger('onT3TplInit', array($this));
 	}
 
 
@@ -197,6 +202,8 @@ class T3Template extends ObjectExtendable
 		} else {
 			echo "<div class=\"error\">Block [$block] not found!</div>";
 		}
+		// make sure other the block is ended with a new line
+		echo "\n";
 	}
 
 
@@ -211,7 +218,7 @@ class T3Template extends ObjectExtendable
 	{
 		$path = T3Path::getPath('tpls/' . $layout . '.php', 'tpls/default.php');
 
-		JDispatcher::getInstance()->trigger('onT3LoadLayout', array(&$path, $layout));
+		JFactory::getApplication()->triggerEvent('onT3LoadLayout', array(&$path, $layout));
 
 		if (is_file($path)) {
 
@@ -346,7 +353,7 @@ class T3Template extends ObjectExtendable
 		$vars['datas']     = $datas;
 		$vars['cols']      = $cols;
 
-		JDispatcher::getInstance()->trigger('onT3Spotlight', array(&$vars, $name, $positions));
+		JFactory::getApplication()->triggerEvent('onT3Spotlight', array(&$vars, $name, $positions));
 
 		$this->loadBlock('spotlight', $vars);
 	}
@@ -557,9 +564,12 @@ class T3Template extends ObjectExtendable
 		}
 
 		$this->_pageclass[] = 'j' . str_replace('.', '', (number_format((float)JVERSION, 1, '.', '')));
+		if(version_compare(JVERSION,'4','ge')){
+			$this->_pageclass[] = 'j40';
+		}
 		$this->_pageclass = array_unique($this->_pageclass);
 
-		JDispatcher::getInstance()->trigger('onT3BodyClass', array(&$this->_pageclass));
+		JFactory::getApplication()->triggerEvent('onT3BodyClass', array(&$this->_pageclass));
 
 		echo implode(' ', $this->_pageclass);
 	}
@@ -572,46 +582,41 @@ class T3Template extends ObjectExtendable
 	 */
 	function snippet()
 	{
-
 		$places   = array();
 		$contents = array();
 
 		if (($openhead = $this->getParam('snippet_open_head', ''))) {
-			$places[] = '<head>';	//not sure that any attritube can be place in head open tag, profile is not support in html5
+			$places[] = '@^\s*<head>\s*$@msU';	//not sure that any attritube can be place in head open tag, profile is not support in html5
 			$contents[] = "<head>\n" . $openhead;
 		}
 		if (($closehead = $this->getParam('snippet_close_head', ''))) {
-			$places[] = '</head>';
+			$places[] = '@^\s*</head>\s*$@msU';
 			$contents[] = $closehead . "\n</head>";
 		}
 		if (($openbody = $this->getParam('snippet_open_body', ''))) {
-			$body = JResponse::getBody();
-
-			if(strpos($body, '<body>') !== false){
-				$places[] = '<body>';
-				$contents[] = "<body>\n" . $openbody;
-			} else {	//in case the body has other attribute
-				$body = preg_replace('@<body[^>]*?>@msU', "$0\n" . $openbody, $body);
-				JResponse::setBody($body);
-			}
+			$places[] = '@^\s*<body[^>]*>\s*$@msU';
+			$contents[] = "$0\n" . $openbody;
 		}
 
 		// append modules in debug position
-		if ($this->getParam('snippet_debug', 0) && $this->countModules('debug')) {
-			$places[] = '</body>';
-			$contents[] = '<div class="t3-debug">' . $this->getBuffer('modules', 'debug') . "</div>\n</body>";
+		if ($this->getParam('snippet_debug', 0) && $this->countModules('debug') || ($closebody = $this->getParam('snippet_close_body', ''))) {
+			$places[] = '@^\s*</body>\s*$@msU';
+			$replacefooter = '';
+			if ($this->getParam('snippet_debug', 0) && $this->countModules('debug')) {
+				$replacefooter .= '<div class="t3-debug">' . $this->getBuffer('modules', 'debug') . "</div>\n";
+			}
+			if (($closebody = $this->getParam('snippet_close_body', ''))) {
+				$replacefooter .= $closebody . "\n";
+			}
+			$replacefooter .= "</body>";
+			$contents[] = $replacefooter;
 		}
 
-		if (($closebody = $this->getParam('snippet_close_body', ''))) {
-			$places[] = '</body>';
-			$contents[] = $closebody . "\n</body>";
-		}
+		if (count($places)) {			
+			$body = JFactory::getApplication()->getBody();
+			$body = preg_replace($places, $contents, $body);
 
-		if (count($places)) {
-			$body = JResponse::getBody();
-			$body = str_replace($places, $contents, $body);
-
-			JResponse::setBody($body);
+			JFactory::getApplication()->setBody($body);
 		}
 	}
 
@@ -623,8 +628,29 @@ class T3Template extends ObjectExtendable
 	 */
 	function countModules($positions)
 	{
+		if (!$this->_tpl || !method_exists($this->_tpl, 'countModules')) return 0;
+
+		// get real post name
 		$pos = $this->getPosname($positions);
-		return $this->_tpl && method_exists($this->_tpl, 'countModules') ? $this->_tpl->countModules($pos) : 0;
+
+		// support only and, or - back compatibility
+		if (preg_match ('/ or /i', $pos)) {
+			$arr = preg_split('/ or /i', $pos);
+			$result = 0;
+			foreach ($arr as $p) {
+				$result = $result || $this->_tpl->countModules($p);
+			}		
+			return $result;
+		} else if (preg_match ('/ and /i', $pos)) {
+			$arr = preg_split('/ and /i', $pos);
+			$result = 1;
+			foreach ($arr as $p) {
+				$result = $result && $this->_tpl->countModules($p);
+			}		
+			return $result;
+		} 
+
+		return $this->_tpl->countModules($pos);
 	}
 
 
@@ -637,6 +663,8 @@ class T3Template extends ObjectExtendable
 	 */
 	function checkSpotlight($name, $positions)
 	{
+		if (!$this->_tpl || !method_exists($this->_tpl, 'countModules')) return 0;
+
 		$poss = array();
 
 		for ($i = 1; $i <= $this->maxgrid; $i++) {
@@ -653,7 +681,14 @@ class T3Template extends ObjectExtendable
 			$poss = preg_split('/\s*,\s*/', $positions);
 		}
 
-		return $this->_tpl && method_exists($this->_tpl, 'countModules') ? $this->_tpl->countModules(implode(' or ', $poss)) : 0;
+		// fix deprecated error: using expression in HtmlDocument::countModules()
+		foreach ($poss as $pos) {
+			if ($this->_tpl->countModules($pos)) return 1;
+		}
+
+		return 0;
+
+		//return $this->_tpl && method_exists($this->_tpl, 'countModules') ? $this->_tpl->countModules(implode(' or ', $poss)) : 0;
 	}
 
 
@@ -687,7 +722,7 @@ class T3Template extends ObjectExtendable
 	function getPosname($condition)
 	{
 		$operators = '(,|\+|\-|\*|\/|==|\!=|\<\>|\<|\>|\<=|\>=|and|or|xor)';
-		$words = preg_split('# ' . $operators . ' #', $condition, null, PREG_SPLIT_DELIM_CAPTURE);
+		$words = preg_split('# ' . $operators . ' #', $condition, -1, PREG_SPLIT_DELIM_CAPTURE);
 		for ($i = 0, $n = count($words); $i < $n; $i += 2) {
 			// odd parts (modules)
 			$name = strtolower($words[$i]);
@@ -882,7 +917,8 @@ class T3Template extends ObjectExtendable
 			// megamenu.css override in template
 			$this->addCss('megamenu');
 		}
-
+		// JFactory::getDocument()->getWebAssetManager()->disableAsset('script','bootstrap.es5');
+		
 		// Add scripts
 		if (version_compare(JVERSION, '3.0', 'ge')) {
 			JHtml::_('jquery.framework');
@@ -1120,7 +1156,7 @@ class T3Template extends ObjectExtendable
 		foreach ($afiles as $afile) {
 			if (is_file($afile)) {
 				//load xml
-				$axml = JFactory::getXML($afile);
+				$axml = simplexml_load_file($afile);
 
 				//process if exist
 				if ($axml) {
@@ -1155,14 +1191,23 @@ class T3Template extends ObjectExtendable
 
 								if ($url) {
 									if ($node == 'stylesheets') {
-										$type = $file['type'] ? (string) $file['type'] : 'text/css';
-										$media = $file['media'] ? (string) $file['media'] : null;
-										$this->addStylesheet($url, $type, $media);
+										if(version_compare(JVERSION, '3.7', 'lt')) {
+											$type = $file['type'] ? (string) $file['type'] : 'text/css';
+											$media = $file['media'] ? (string) $file['media'] : null;
+											$this->addStylesheet($url, $type, $media);
+										} else {
+											//$this->addStylesheet($url, array(), current($file->attributes()));
+											$this->addStylesheet($url, array(), current((array) $file->attributes()));
+										}
 									} else {
-										$type = $file['type'] ? (string) $file['type'] : 'text/javascript';
-										$defer = $file['defer'] ? (bool) $file['defer'] : false;
-										$async = $file['async'] ? (bool) $file['async'] : false;
-										$this->addScript($url, $type, $defer, $async);
+										if(version_compare(JVERSION, '3.7', 'lt')) {
+											$type = $file['type'] ? (string) $file['type'] : 'text/javascript';
+											$defer = $file['defer'] ? (bool) $file['defer'] : false;
+											$async = $file['async'] ? (bool) $file['async'] : false;
+											$this->addScript($url, $type, $defer, $async);
+										} else {
+											$this->addScript($url, array(), current((array) $file->attributes()));
+										}
 									}
 								}
 							}

@@ -1,3 +1,300 @@
+<h2>Version: 3.1.2 (02/12/2022)</h2>
+<h3>Hot fixes</h3>
+- Compatible with J4+ | <a href="https://github.com/t3framework/t3/commit/9bb219100d373418b2e529d422863334363e789d">Link</a><br/>
+
+<h2>Version: 3.1.1 (25/11/2022)</h2>
+<h3>Bug fixes</h3>
+- Fixed extra fields front-end edit not save | <a href="https://github.com/t3framework/t3/commit/8f35e86bcfc4e2783709fbfddc285957a5e6c191">Link</a><br/>
+- Compatible with php8.1x | <a href="https://github.com/t3framework/t3/commit/6dd865bdae2e403e4dacab5fcf621eb54ae95453">Link</a><br/>
+- Mainmenu Itemid added to the link for Joomla 4+ | <a href="https://github.com/t3framework/t3/commit/2deefdfdc3377ed8f2d7a7445dcd1d0263da3113">Link</a><br/>
+
+<h2>Version: 3.1.0 (14/07/2022)</h2>
+<h3>Bug fixes</h3>
+- Fixed module content error on joomla 4 | <a href="https://github.com/t3framework/t3/commit/73d855522c7e92074ffe9014ff7c19ea778c576b">Link</a><br/>
+- Fixed warning message php 8.0 | <a href="https://github.com/t3framework/t3/commit/543ff635ec50691d8bdbd7b6823d8e81d5909394">Link</a><br/>
+
+<h2>Version: 3.0.9 (20/05/2022)</h2>
+<h3>Bug fixes</h3>
+- Update add j40 class to body support load css | <a href="https://github.com/t3framework/t3/commit/18a8ffffd7e0b1fc24a3bf2d348af495cc3e72a2">Link</a><br/>
+- Update check class exits mod_finder on Joomla 4 | <a href="https://github.com/t3framework/t3/commit/4802d2908f90353f51013e48eff5a2f79354f40c">Link</a><br/>
+- Fixed load override module style on parameter | <a href="https://github.com/t3framework/t3/commit/d549396f98ed813e51c3781e549cf7b6ace21a6a">Link</a><br/>
+- Check chromes style exits on template for render module  | <a href="https://github.com/t3framework/t3/commit/02a70d1c1f6793c04fb5f2582fa1055dba7fd6b8">Link</a><br/>
+
+<h2>Version: 3.0.8 (31/3/2022)</h2>
+<h3>Bug fixes</h3>
+- Fix getting params of menu item on Joomla 4 | <a href="https://github.com/t3framework/t3/commit/04049ae3d9060688a685b925f38c31124bcdf782">Link</a><br/>
+- Fix menu that uses "t3bootstrap" type on Joomla 4 | <a href="https://github.com/t3framework/t3/commit/4b21319dfacbcaaaea09acd415a9a21bd4d2ec84">Link</a><br/>
+- Fix loading mod chrome by config on template | <a href="https://github.com/t3framework/t3/commit/4b21319dfacbcaaaea09acd415a9a21bd4d2ec84">Link</a><br/>
+- Fixed module style on front-end render | <a href="https://github.com/t3framework/t3/commit/2bd27ea0ac92eb04f9b80dcabb7edae3560452e9">Link</a><br/>
+- Joomla 4: Fix loading module style on plugin if it does not exists on template  | <a href="https://github.com/t3framework/t3/commit/b0f4d64741c69c3b489d96c63d57c581d33abb66">Link</a><br/>
+
+<h2>Version: 3.0.7 (28/10/2021)</h2>
+<h3>Bug fixes</h3>
+- Compatible with PHP 8 | <a href="https://github.com/t3framework/t3/commit/dcec279923e1fed30476ac867362bc40fcb8bd0d">Link</a><br/>
+- Fixed add class when button unpublished trigger change  | <a href="https://github.com/t3framework/t3/commit/a2edc9537befd75ae0050f3e34ea3aae4a9e80a1">Link</a><br/>
+
+<h2>Version: 3.0.6 (03/10/2021)</h2>
+<h3>Bug fixes</h3>
+- Improve menuItem render | <a href="https://github.com/t3framework/t3/commit/783bed7759a7f68d8cef37d494e086adabf35a20">Link</a><br/>
+
+<h2>Version: 3.0.5 (01/10/2021)</h2>
+<h3>Bug fixes and improvements</h3>
+- Improve menuItem render | <a href="https://github.com/t3framework/t3/commit/38310d96d571b655451579c85f2c6bc0ecfe6976">Link</a><br/>
+- fixed event click on menu heading type  | <a href="https://github.com/t3framework/t3/commit/8cc300dd91444bd111c38a511264cbd2c0edbc7c">Link</a><br/>
+- Change iconmoon to fontawsome  | <a href="https://github.com/t3framework/t3/commit/b584f86e33f4832d4671ae97a7922771518a1135">Link</a><br/>
+- Improve render Field on edit module layout  | <a href="https://github.com/t3framework/t3/commit/36e287dc9212946a93ca2bd92f81d327ac989d25">Link</a><br/>
+
+<h2>Version: 3.0.4 (13/09/2021)</h2>
+<h3>Bug fixes and improvements</h3>
+- Improve Smart Search page | <a href="https://github.com/t3framework/t3/commit/176a8acfc3a2eb5200024303c9bb785a08b38fd8">Link</a><br/>
+- fixed allow edit module on front-end | <a href="https://github.com/t3framework/t3/commit/6cb03b97a315c4875f0b80b927b6b80367488c1e">Link</a><br/>
+- fixed load modChrome style | <a href="https://github.com/t3framework/t3/commit/366e958020bc892fdee41d3bd8021bdca6467296">Link</a><br/>
+- set default num_columns on blog layout | <a href="https://github.com/t3framework/t3/commit/9b4ef7cf5fc97922c7e379078c70a0d15b0718f6">Link</a><br/>
+
+<h2>Version: 3.0.3 (10/09/2021)</h2>
+<h3>Bug fixes for Joomla 4</h3>
+- Improve front-end view and tag filter layout | <a href="https://github.com/t3framework/t3/commit/4f7e151bf8f9f646a60f7573edfe1f1312aee024">Link</a><br/>
+- Add class to improve style for the edit article view | <a href="https://github.com/t3framework/t3/commit/59638f55f49e0261983f4e1cc8953bd7d192b303">Link</a><br/>
+- Fixed: Missing icons on front-end view | <a href="https://github.com/t3framework/t3/commit/b0aaa852b9dfae9ceec1820838b6f7e911acac58">Link</a><br/>
+- Update style select field on template style settings | <a href="https://github.com/t3framework/t3/commit/f3744b4b534c8428dda059222b69685e8febe9c2">Link</a><br/>
+- Remove caption library with Joomla 4 | <a href="https://github.com/t3framework/t3/commit/85b36e59077f053dfffdfb4f09fe314b46e7bfe5">Link</a><br/>
+
+<h2>Version: 3.0.2 (31/08/2021)</h2>
+- Fix issues for front-end edit of article and custom html module on Joomla 4
+
+<h2>Version: 3.0.1 (27/08/2021)</h2>
+- Bug fix for front-end edit on Joomla 4
+
+<h2>Version: 3.0.0 (23/08/2021)</h2>
+- Update for Joomla 4 compatibility
+
+<h2>Version: 2.7.7 (25/05/2021)</h2>
+<h3>Update to compatible with php8</h3>
+- Got error major in backend templates | <a href="https://github.com/t3framework/t3/commit/f9727ca31a52b85c94fc4919903e109f96cfd901">Link</a><br/>
+- Got error 'params' on the fontend when create menu item type = categoy list | <a href="https://github.com/t3framework/t3/commit/f9727ca31a52b85c94fc4919903e109f96cfd901">Link</a><br/>
+- Can not create menu with menu item type = featured contacts | <a href="https://github.com/t3framework/t3/commit/f9727ca31a52b85c94fc4919903e109f96cfd901">Link</a><br/>
+- Got error on the frontend when enabled Development mode in backend template | <a href="https://github.com/t3framework/t3/commit/f9727ca31a52b85c94fc4919903e109f96cfd901">Link</a><br/>
+- Can not show ThemeMagic preview in backend template | <a href="https://github.com/t3framework/t3/commit/f9727ca31a52b85c94fc4919903e109f96cfd901">Link</a><br/>
+- Can't save thememagic setting in backend template | <a href="https://github.com/t3framework/t3/commit/f9727ca31a52b85c94fc4919903e109f96cfd901">Link</a><br/>
+<h2>Version: <h2>Version: 2.7.6 (12/03/2020)</h2>
+<h3>Update to compatible with Joomla 3.9.16 & Fix bugs</h3>
+- Custom Theme not available after update to Joomla 3.9.16 | <a href="https://github.com/t3framework/t3/commit/f7fe9030c4e1946ece82f16f4a30f5bed34c8fd1">Link</a><br/>
+- PHP notice in contact page | <a href="https://github.com/t3framework/t3/commit/ae59c83daa0e5a40c44694c65075876da9bbcf7f">Link</a><br/>
+- Button CSS style problem in backend | <a href="https://github.com/t3framework/t3/commit/b0d3ccd19561114ef7be9f14b098adfad6bfb9c8">Link</a><br/>
+- Menu Separator css problems | <a href="https://github.com/t3framework/t3/commit/a0c73100357764b27223493c56060c31885f04a4">Link</a><br/>
+- Media folder list error in frontend editor | <a href="https://github.com/t3framework/t3/commit/daf3769408d0a1255fc7e70b88839bf6f4849233">Link</a><br/>
+
+<h2>Version: 2.7.5 (21/10/2019)</h2>
+<h3>Update Bootstrap & Fix bugs</h3>
+- Update Bootstrap 3.4.1 | <a href="https://github.com/t3framework/t3/commit/07c6a4a8d6b29544627316ec41034322a9ca7f29">Link</a><br/>
+- Fixed user remind and reset layout problems | <a href="https://github.com/t3framework/t3/commit/cf4ae1f6a289f98a4b5bef81ea71b9dbd5363b2a">Link</a><br/>
+- Issue with Filter field on contact list page | <a href="https://github.com/t3framework/t3/commit/cc9e5821f649bab9b35020dfdde27bc98278a5db">Link</a><br/>
+- Backend: Got some errors media type css | <a href="https://github.com/t3framework/t3/commit/51883efe3dea75217535f534b9509b21bc2fc47a">Link</a><br/>
+- Could not click link inside off canvas | <a href="https://github.com/t3framework/t3/commit/b5062c1819fbac759d1088c57a4fcbfa3ec0e1a4">Link</a><br/>
+- Remove Warning PHP 7.3 | <a href="https://github.com/t3framework/t3/commit/c4449f8b000c84f49e3bbbfe805b054f2e94e415">Link</a><br/>
+
+<h2>Version: 2.7.4 (19/02/2019)</h2>
+<h3>Update to compatible with Joomla 3.9.3 & Fix bugs</h3>
+- Fix warning error when used with PHP 7.3.0 & Joomla 3.9.3 | <a href="https://github.com/t3framework/t3/commit/220fcbda7728d0739231b611399118e77bb3d776">Link</a><br/>
+- Restyle privacy popup | <a href="https://github.com/t3framework/t3/commit/50e6a70618273135f50a8d861cb662f98ab7b2b9">Link</a><br/>
+- Missing Edit icon in Article / Category Blog / Featured page when change postion of article info to Split or below | <a href="https://github.com/t3framework/t3/commit/1e0009828798e3d432bc18e4b5a4991fd5008198">Link</a><br/>
+- RTL - Can not show privacy link on registration page and user profile page | <a href="https://github.com/t3framework/t3/commit/adbe0a65328096f9ee96dd974b7155db094a632d">Link</a><br/>
+- Filter by month is not working | <a href="https://github.com/t3framework/t3/commit/86b4001748f0fc9e0f808d11118310437feaae18">Link</a><br/>
+
+<h2>Version: 2.7.3 (01/11/2018)</h2>
+<h3>Update to compatible with Joomla 3.9</h3>
+- Can't hide User custom field label on the contact page | <a href="https://github.com/t3framework/t3/commit/c41cb00032037d4a126528453e0028bcadc0229d">Link</a><br/>
+- Fix bugs to compatible with Joomla 3.9 | <a href="https://github.com/t3framework/t3/commit/c41cb00032037d4a126528453e0028bcadc0229d">Link</a><br/>
+- Update override layout | <a href="https://github.com/t3framework/t3/commit/3b155cb2ce369a6d053c86025fd8281c802b4941">Link</a><br/>
+- Improve style for Terms form | <a href="https://github.com/t3framework/t3/commit/6e01d99b85ee97e55d7569ad2d33ad998da5134f">Link</a><br/>
+
+<h2>Version: 2.7.2 (05/07/2018)</h2>
+<h3>Update to compatible with Joomla 3.8.10</h3>
+- Update HTML override for login form | <a href="https://github.com/t3framework/t3/commit/1c4537ab968234afc751606215817c2ff7ff419f">Link</a><br/>
+- Improve style for user's extrafield | <a 
+href="https://github.com/t3framework/t3/commit/829d5335401f1fa3557434548eddec199843e7ec">Link</a><br/>
+- Alert Message Colour. | <a href="https://github.com/t3framework/t3/commit/3b3164bbbc9d44179ccee5a8976d5088cad4f2ff">Link</a><br/>
+- Remove long space before the class in the html tag. | <a href="https://github.com/t3framework/t3/commit/a3e16ffa3b087f2a21eb3c1666562c25feb30ff6">Link</a><br/>
+- Image css style option is not working on T3 blank | <a href="https://github.com/t3framework/t3/commit/ca9ee6593a9935b3694955a5259d910980e2365b">Link</a><br/>
+- Prevent removing all attributes of body tag | <a href="https://github.com/t3framework/t3/commit/6cedc4a7f5eb9f1759ffd4983b7ce99c7931095b">Link</a><br/>
+- Update to compatible with Joomla 3.8.10 | <a href="https://github.com/t3framework/t3/commit/8bec2ffd34b2e9f19103f9ee58f15ed398e6edc0">Link</a><br/>
+- Improve style for rtl language | <a href="https://github.com/t3framework/t3/commit/4fb9659bbcaa97e9f853173d502173b9df3904ff">Link</a><br/>
+- Update override for send email form | <a href="https://github.com/t3framework/t3/commit/261aed60e40962e5c4f0a8b83540cd8e94414315">Link</a><br/>
+- Fix Time zone dropdow lost data | <a 
+href="https://github.com/t3framework/t3/commit/63875bf63905bacf1f0b320a5ddc6e49a73560d7">Link</a>
+
+<h2>Version: 2.7.1 (04/05/2018)</h2>
+<h3>Fix some bugs and make compatible with WCAG</h3>
+- Fix break layout when click to the fields button | <a href="https://github.com/t3framework/t3/commit/86ac007317ef97322ee64e41802615a0a94dc689">Link</a><br/>
+- Clear tag button does not work | <a 
+href="https://github.com/t3framework/t3/commit/518b61f57e1b06431093bfe188493c2398ebc141">Link</a><br/>
+- Add class to module menu override. | <a href="https://github.com/t3framework/t3/commit/3c1adab1dbe0e310068cbf5cd0c5085fbd9e1272">Link</a><br/>
+- Improve style for On / Off icon. | <a href="https://github.com/t3framework/t3/commit/2741fe2331ec6474ac29c1c3b201ce9e9dc2d6e5">Link</a><br/>
+- Update the check show label condition command | <a href="https://github.com/t3framework/t3/commit/4753debbb658663d5f9058f3e7ee818d73d40ed6">Link</a><br/>
+- Update module search override | <a href="https://github.com/t3framework/t3/commit/0ad54a5b77721256fc1f61128674eaf1143ba59f">Link</a><br/>
+- Add space for HTML element property | <a href="https://github.com/t3framework/t3/commit/ba038ed65b3a73cc827a69b6aa317261690bdb54">Link</a><br/>
+- Update override to compatible with WCAG | <a href="https://github.com/t3framework/t3/commit/4b051c9e2420f65386536913b54f108f6a5e2685">Link</a><br/>
+- Update aria roles for form elements | <a href="https://github.com/t3framework/t3/commit/0d94fe6c2f5f556976012ff05ca70a6acff2d506">Link</a><br/>
+- Add aria-label for form element | <a 
+href="https://github.com/t3framework/t3/commit/f8334416810bb0b31767a65946607714908431e4">Link</a>
+
+<h2>Version: 2.7.0 (29/09/2017)</h2>
+<h3>Fix bugs & Improvements</h3>
+- Fix bugs to compatible with Joomla 3.8 | <a href="https://github.com/t3framework/t3/commit/e01f461fea1a653abe2e59fbecc774cbd45dbd19">Link</a><br/>
+- Intergration with new Joomla params | <a 
+href="https://github.com/t3framework/t3/commit/8102b80f9c3f6410dd8b692d6ec75a45b3a75bf3">Link</a><br/>
+- JFile::read is deprecated. | <a href="https://github.com/t3framework/t3/commit/d838e122cf4c16f859eef6285f101e82e427bcb4">Link</a><br/>
+- Joomla\CMS\Factory::getXml is deprecated. | <a href="https://github.com/t3framework/t3/commit/6388ac0a6e619e537c22e64b07f02e80a46b2d10">Link</a><br/>
+- Fix deprecated using expression in HtmlDocument::countModules() | <a href="https://github.com/t3framework/t3/commit/8bd0812b44148cfd6ec5e1482fd6e05c0a3bb9c5">Link</a><br/>
+- Fix deprecated method signature for addScript & addStyleSheet | <a href="https://github.com/t3framework/t3/commit/85208146ecd2ca9245753c7fb2693cbe24188173">Link</a><br/>
+- Wrong default parameter | <a href="https://github.com/t3framework/t3/commit/94aae18ba0afc078bf00bddbde7a51bef80cb519">Link</a><br/>
+- Spotlight Count Module Error | <a href="https://github.com/t3framework/t3/commit/91bc609bfeb6ebe2972e2661442b023dc97fc94a">Link</a><br/>
+- Fix JFileLayout for Joomla 3.x | <a href="https://github.com/t3framework/t3/commit/989d060984c2a7fed4bb865f772a38bf1aa48c3d">Link</a><br/>
+- Update override to compatible with Joomla 3.8 | <a 
+href="https://github.com/t3framework/t3/commit/c111fe496de23dbb8d8ac48610411a8875eba5e8">Link</a><br/>
+- Remove override article edit layout | <a href="https://github.com/t3framework/t3/commit/39d3627f8d76fa33e38e60a0b73e06aa13947bb4">Link</a><br/>
+- Improve style for tag page | <a href="https://github.com/t3framework/t3/commit/1dcd162453da3054c0b93df860254dbc3f2e6500">Link</a><br/>
+- Fix compatible with Joomla 3.3.x | <a href="https://github.com/t3framework/t3/commit/25ba3108690b0639d386f90f0ee88b7d9c4ee973">Link</a><br/>
+- Registry class error | <a href="https://github.com/t3framework/t3/commit/8d92e6ace23b5cbaa737afece530e6f06edc7700">Link</a><br/>
+- Update override layouts for T3 BS2 | <a href="https://github.com/t3framework/t3/commit/29d374e36aa4fc7f561f44029f56dbeeb3eae6dc">Link</a><br/>
+
+<h2>Version: 2.6.7 (06/09/2017)</h2>
+<h3>Fix bugs</h3>
+- T3 Module Layout Problems with Joomla 3.7.3 | <a href="https://github.com/t3framework/t3/commit/463cfa53691493251c15964af6f561777c7a12db">Link</a><br/>
+- Remove auto switch tab | <a 
+href="https://github.com/t3framework/t3/commit/876c564f891ebde3e4a00367382a5a20290762c0">Link</a><br/>
+- Create a menu type List contacts in a category to see the error | <a href="https://github.com/t3framework/t3/commit/fe92584bd909a915e9dba1a8846aa4a7238032f5">Link</a><br/>
+- Fix anchor error on mobile | <a href="https://github.com/t3framework/t3/commit/03d0be479ccfaac0b736e6de0be09a803a11d61c">Link</a><br/>
+- Got error when enable JS Compress Tool: Closure Compiler | <a href="https://github.com/t3framework/t3/commit/0332111ea17ecd7bcf8bf740dcfa519aaf279ac7">Link</a><br/>
+- Fix null date comparison | <a href="https://github.com/t3framework/t3/commit/01807fb80c38446bf4a1ea8230d728fed5511636">Link</a><br/>
+- Missing Field tab on the article editting page | <a href="https://github.com/t3framework/t3/commit/7012672c66deed5239f86d13c177117d4b2f41c7">Link</a><br/>
+- Improve style for custom field edit | <a href="https://github.com/t3framework/t3/commit/cfea53dc9554094e30b165bc614bfaba33f6a31d">Link</a><br/>
+
+<h2>Version: 2.6.6 (21/07/2017)</h2>
+<h3>Fix bugs</h3>
+- Got notice error in thememagic | <a href="https://github.com/t3framework/t3/commit/e1bf82506fa8a4ce3930fff537891775261728f8">Link</a><br/>
+- Update layout override | <a 
+href="https://github.com/t3framework/t3/commit/44c6e1bd2b9a4d005dc4d6478912f6f301bb6d5b">Link</a><br/>
+- Fixed: Duplicate AfterTitle events | <a href="https://github.com/t3framework/t3/commit/b6873118a4cd33e43650d0df7522908a2778df58">Link</a><br/>
+- Highlighting search results on Joomla 3.7.3 using T3 BS3 Blank Template | <a href="https://github.com/t3framework/t3/commit/fc0cfbfa252abb708b9fe621cf62770505739c74">Link</a><br/>
+- Change T3 logo path | <a href="https://github.com/t3framework/t3/commit/b2c8f1943aea240ac8ec23b479f123ce2e24f956">Link</a><br/>
+
+<h2>Version: 2.6.5 (26/05/2017)</h2>
+<h3>Fix bugs</h3>
+- Add Joomla extrafield tab on article edit view | <a href="https://github.com/t3framework/t3/commit/4e8072cb63e2cd087f7162861d18d68d7cff5151">Link</a><br/>
+- Update layout override | <a 
+href="https://github.com/t3framework/t3/commit/262e0e5052ca7b66e3307a19caafe568d990c9ad">Link</a><br/>
+- Fix conflict less complie library of kunena latest version | <a href="https://github.com/t3framework/t3/commit/35717f6af78ed886b44ff4f24a3589033d6a0ec5">Link</a><br/>
+- Improve style for the front-end edit layout | <a href="https://github.com/t3framework/t3/commit/aab66e905a0303adf5315fe20b23a4b378f68c76">Link</a><br/>
+- mod_menu "rel" option doesnt work.  | <a 
+href="https://github.com/t3framework/t3/commit/262e0e5052ca7b66e3307a19caafe568d990c9ad">Link</a><br/>
+- Don't show Joomla extrafields on article list view. | <a href="https://github.com/t3framework/t3/commit/6e41a733f3d3e6a6f646e60d053c08644b17fe97">Link</a><br/>
+- Improve style for module on Megamenu. | <a 
+href="https://github.com/t3framework/t3/commit/6e41a733f3d3e6a6f646e60d053c08644b17fe97">Link</a><br/>
+
+<h2>Version: 2.6.4 (05/05/2017)</h2>
+<h3>Fix bugs</h3>
+- Update compatiable with Joomla 3.7 | <a href="https://github.com/t3framework/t3/commit/439a9550fc81c3a7d0f4275e7ce68a99f9f8a541">Link</a><br/>
+- Select box displays error in template manager | <a 
+href="https://github.com/t3framework/t3/commit/862fe1936cc26749307043f8e93b2d026f29b7c0">Link</a><br/>
+- Select the checked options on radio button group | <a href="https://github.com/t3framework/t3/commit/0ac5c9f0fd5ec5a1e7b0a3897cd85708a50cc131">Link</a><br/>
+- Improve style for the front-end edit layout | <a href="https://github.com/t3framework/t3/commit/aab66e905a0303adf5315fe20b23a4b378f68c76">Link</a><br/>
+- Update override to compatible with Joomla latest version | <a 
+href="https://github.com/t3framework/t3/commit/e22d22960e2956753b558ddb0e1cad69974a540b">Link</a><br/>
+- Menu selection displays ugly after upgrade J3.7.0 | <a href="https://github.com/t3framework/t3/commit/9d6d023bf8e2a6c12b19aa9a9607db20dd792fff">Link</a><br/>
+- Rel attribute does not work for menu item | <a 
+href="https://github.com/t3framework/t3/commit/ef1c16221cf2b756f55b7a8db9c40b3b8e9b50b8">Link</a><br/>
+- Got js error when enable optimize js | <a href="https://github.com/t3framework/t3/commit/871e2c5322b3df872f7dfa70fa4653dbaf1ade3b">Link</a><br/>
+- Add recaptcha for article front-end edit | <a href="https://github.com/t3framework/t3/commit/4db877eec422bc732684796ca50c12b2b75fced6">Link</a><br/>
+
+<h2>Version: 2.6.3 (01/03/2017)</h2>
+<h3>Fix bugs</h3>
+- Can not hide menu item in megamenu | <a href="https://github.com/t3framework/t3/commit/aac8d8ac5fe3857c509ee120a60a82dd61974591">Link</a>
+- New variables introduced with no default value  | <a 
+href="https://github.com/robwent/t3/commit/7449d9fbadb9bc2f3a75955241049c7a796971a6">Link</a>
+- Add updateserver tag and change version | <a href="https://github.com/t3framework/t3/commit/1bd10ee468d90f42a0e8b76e4dd42bbb1bfa61b0">Link</a>
+
+<h2>Version: 2.6.2 (30/11/2016)</h2>
+<h3>Fix bugs</h3>
+- Fix render module on Joomla 3.6.4 | <a href="https://github.com/t3framework/t3/commit/51a50f30a8f140b012f47e4105085373d8649638">Link</a>
+- Update override file when upgrade to J3.6.4  | <a 
+href="https://github.com/t3framework/t3/commit/f9405060b14284ce83d4c639ef5ed1ca085f5d17">Link</a>
+- Fix off-canvas scroll on ios | <a href="https://github.com/t3framework/t3/commit/db23b0d93f78b56458dd11e6adb1c24d94af1831">Link</a>
+
+<h2>Version: 2.6.1 (15/08/2016)</h2>
+<h3>Fix bugs</h3>
+- Fix lost icon when edit article at front-end | <a href="https://github.com/t3framework/t3/commit/2def47a10cdd91ab00dd627a0d376468de088e15">Link</a>
+- Sync layout file with latest joomla  | <a 
+href="https://github.com/t3framework/t3/commit/0888c1b9ed60ff43316af3139e7ff857328ce0ce">Link</a>
+- Fix listing folder in Windows on Joomla 3.6 | <a href="https://github.com/t3framework/t3/commit/d847973f368b2eff9b5ea525051c2e9340841213">Link</a>
+- Remove version in css/js minify url to increase performance score | <a href="https://github.com/t3framework/t3/commit/fe55ae948b211b341474fe0afe99e11c28898282">Link</a>
+- Fix minify css  | <a href="https://github.com/t3framework/t3/commit/9c426e72bc6b688b1505406895d40f7cfd11107e">Link</a>
+- Update override article layout | <a href="https://github.com/t3framework/t3/commit/a34dd4da673120bc5b2f6f3b315806c95f27bb0f">Link</a>
+
+<h2>Version: 2.6.0 (22/07/2016)</h2>
+<h3>Fix bugs</h3>
+- Override template options view | <a href="https://github.com/t3framework/t3/commit/daafe23177404c3026c4b8db27782a6ed1a40e1b">Link</a>
+- Fix don't show caret on ipad  | <a 
+href="https://github.com/t3framework/t3/commit/9e16177db8f6eb44b36c4bf7f98ca16075efad37">Link</a>
+- Fix modal in megamenu | <a href="https://github.com/t3framework/t3/commit/286bb78bc2c3cceb166d6466979a5604e4954fb0">Link</a>
+- Fix custom code cannot append before close head | <a href="https://github.com/t3framework/t3/commit/eb9119812af74c26f11587b18f8753f192af5fc6">Link</a>
+- Override the modal view  | <a href="https://github.com/t3framework/t3/commit/837d90e4c091678f22e879b2bd5cc0b4ea46e84a">Link</a>
+- Add login/logout redirect link | <a href="https://github.com/t3framework/t3/commit/6b5ac5fe13213b621e1ff8f0f35ff2a4b82657c7">Link</a>
+- Fix cannot open link on parent menu item | <a href="https://github.com/t3framework/t3/commit/cf372a8e0426b2d49114cfe33d1486bcbb420f43">Link</a>
+- Megamenu configuration is lost with some special language | <a href="https://github.com/t3framework/t3/commit/258b81897df73494b64f69be8187abd1ce1a547a">Link</a>
+- No need store default joomla layouts in html of base themes | <a href="https://github.com/t3framework/t3/commit/3599d28afd50425c03985771e66f26607430dda6">Link</a>
+- Fixed: Does not show icon in modules list view  | <a href="https://github.com/t3framework/t3/commit/84f961b86e75f9f861873bbc8fad0aa18c364800">Link</a>
+- Update overwrite JLayoutFile. Fixed #438 | <a href="https://github.com/t3framework/t3/commit/38af3184f96bbe92cf66476a76667cb79a10cc6f">Link</a>
+- Front-end edit: Does not show publish icon | <a href="https://github.com/t3framework/t3/commit/276984e0a60630448894409eea4483216f6f7eed">Link</a>
+- Fixed: Does not show article title when click to article detail | <a href="https://github.com/t3framework/t3/commit/41aad9d4f44e626d3d1896e536e9e2838fa57e87">Link</a>
+- Fix lost megamenu configuration when edit menu item. Solved #425, #340 | <a href="https://github.com/t3framework/t3/commit/25720df624f9aa5f89569b35bb36124658cfe077">Link</a>
+- Update html5shim resource. Close #435 | <a href="https://github.com/t3framework/t3/commit/526289358825b0262e802dc5cbc18eb74b6c63b3">Link</a>
+- Not update megamenu configuration after alter menu item | <a href="https://github.com/t3framework/t3/commit/3da6073654bfd907e5c4dc438e9007b724328b26">Link</a>
+- Improve tab-style megamenu. Fix #437 | <a href="https://github.com/t3framework/t3/commit/b177ea9605a5ef342f9e3ef7af3bf585a9dcd316">Link</a>
+
+<h2>Version: 2.5.5 (08/04/2016)</h2>
+<h3>Fix bugs</h3>
+- Fix got error when validate structure data  | <a href="https://github.com/t3framework/t3/commit/d54f7a45460518411c0c9e93a7819b980417e5e2">Link</a>
+- Update article info block  | <a 
+href="https://github.com/t3framework/t3/commit/635f0116114362a307a9ee12d7f3a1bb57d2c788">Link</a>
+- Fix anchor on off-canvas sidebar | <a href="https://github.com/t3framework/t3/commit/b6a860d279985efde050b7599e95ac87cca7a7fb">Link</a>
+
+<h2>Version: 2.5.4 (07/04/2016)</h2>
+<h3>Fix bugs</h3>
+- Fix error style when add a module position on front-end edit. | <a href="https://github.com/t3framework/t3/commit/ea6945de71e7a7ff8c8fb20f1e416f0462ad042e">Link</a>
+- Fix js error on smart search page | <a 
+href="https://github.com/t3framework/t3/commit/9c3dad54fac5d283bd679a0edc57beaa4d91a6df">Link</a>
+- Fix click on anchor in offvanvas menu. Fix #433 | <a href="https://github.com/t3framework/t3/commit/a8e188fdaebc148a8383e560aaf632d58d7e02fb">Link</a>
+
+<h2>Version: 2.5.3 (28/03/2016)</h2>
+<h3>Improvements</h3>
+- Update bootstrap latest version 3.3.6 | <a href="https://github.com/t3framework/t3/commit/892ccb74912874eae93aa58ee75716193723d813">Link</a>
+- Update Font Awesome Icons | <a href="https://github.com/t3framework/t3/commit/fdea5628223d331e5f0098b8445f360a319bab23">Link</a>
+
+<h3>Fix bugs</h3>
+- SEO - Schema Data for MegaMenu | <a href="https://github.com/t3framework/t3/commit/12dc13b4096b5200604157a3b41e0204a4dcfb4a">Link</a>
+- Fix wrong insert Custom Code in some case | <a 
+href="https://github.com/t3framework/t3/commit/e30c4430e4016b6837fec534ba64a7fa2eb753eb">Link</a>
+- Change sidebar title to language string | <a href="https://github.com/t3framework/t3/commit/165e99fd17243000f26ae0f4e30766c8a8a5a4ce">Link</a>
+- JURI::base(true) does not work in Joomla 3.5 | <a 
+href="https://github.com/t3framework/t3/commit/098388b21e2d24a84ab2b179aedc6ad91bf4aac6">Link</a>
+- Missing icon font on editor | <a href="https://github.com/t3framework/t3/commit/ba66212bb23e75fbcf8617a8936ec51b578a9b90">Link</a>
+- Message alert displays error in thememagic  | <a 
+href="https://github.com/t3framework/t3/commit/e88bc8104823e8946f23b47bbc45d95cf5290cdb">Link</a>
+
+<h2>Version: 2.5.2 (12/09/2015)</h2>
+<h3>Improvements</h3>
+- Update fr-FR.plg_system_t3.ini | <a href="https://github.com/t3framework/t3/commit/1156a5adc0b34e1952d3c73e125c0f125e986ded">Link</a>
+- Allow using jdoc:include inside component | <a href="https://github.com/t3framework/t3/commit/77f360970948ba1363b88f6e7add1cace407e0e0">Link</a>
+
+<h3>Fix bugs</h3>
+- IE 8: Can't open off-canvas | <a href="https://github.com/t3framework/t3/commit/3f8914ea1b836f6f7ffa5a012d5c4c482978e642">Link</a>
+- Remove http:// in T3 logo for valid with https | <a 
+href="https://github.com/t3framework/t3/commit/7516563d8881196a6b1a31abfdde360a1e4e9eaf">Link</a>
+- Add option to skip component content for specific pages | <a href="https://github.com/t3framework/t3/commit/48ab1de7808ae6b7f8be7d7e0afe8ea0f7ad0ea2">Link</a>
+- Disable option skip component content when loading layout for admin | <a 
+href="https://github.com/t3framework/t3/commit/d6d7e4a9b8c1057f39ead4b7924ba1abcfb5042b">Link</a>
+
 <h2>Version: 2.5.1 (08/09/2015)</h2>
 
 <h3>Fix bugs</h3>
